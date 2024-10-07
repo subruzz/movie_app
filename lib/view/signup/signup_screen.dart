@@ -6,9 +6,9 @@ import 'package:movie_app/utils/config/colors.dart';
 import 'package:movie_app/utils/config/sized_boxes.dart';
 import 'package:movie_app/view/common_widgets/loading.dart';
 import 'package:movie_app/view/common_widgets/messenger.dart';
-import 'package:movie_app/view/signup/widgets/custom_button.dart';
-import 'package:movie_app/view/signup/widgets/auth_choose_text.dart';
-import 'package:movie_app/view/signup/widgets/auth_form.dart';
+import 'package:movie_app/view/common_widgets/custom_button.dart';
+import 'package:movie_app/view/common_widgets/auth_choose_text.dart';
+import 'package:movie_app/view/common_widgets/auth_form.dart';
 
 import '../../model/user.dart';
 import '../home_screen/home_screen.dart';
@@ -44,9 +44,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const HomeScreen()),
+            (Route<dynamic> route) => false,
           );
         }
         if (state is AuthFailure) {
@@ -64,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Icon(Icons.layers_outlined,
-                          color: AppColors.amber, size: 40),
+                          color: AppColors.primary, size: 40),
                       Spacing.height48,
                       const Text(
                         'Sign Up',

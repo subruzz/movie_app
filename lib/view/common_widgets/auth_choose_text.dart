@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/utils/config/colors.dart';
+import 'package:movie_app/view/login/login_screen.dart';
 import 'package:movie_app/view/signup/signup_screen.dart';
 
 class AuthChooseText extends StatelessWidget {
@@ -11,13 +13,18 @@ class AuthChooseText extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           isLogin
-              ? Navigator.push(
+              ? Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const SignUpScreen(),
                   ),
                 )
-              : Navigator.pop(context);
+              : Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
         },
         child: RichText(
           text: TextSpan(
@@ -30,7 +37,7 @@ class AuthChooseText extends StatelessWidget {
               ),
               TextSpan(
                 text: isLogin ? 'Sign Up' : 'Login',
-                style: const TextStyle(color: Colors.blue),
+                style: const TextStyle(color: AppColors.primary),
               ),
             ],
           ),

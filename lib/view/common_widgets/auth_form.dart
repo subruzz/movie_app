@@ -41,12 +41,15 @@ class AuthForm extends StatelessWidget {
           if (!isLogin) Spacing.height12,
           if (!isLogin)
             CustomTextField(
+              keyboardType: TextInputType.emailAddress,
               label: 'E-mail',
               validator: Validator.validateEmail,
               controller: emailController,
             ),
           Spacing.height12,
           CustomTextField(
+            obscureText: true,
+            keyboardType: TextInputType.visiblePassword,
             label: 'Password',
             validator: Validator.validatePassword,
             controller: passwordController,
@@ -54,6 +57,7 @@ class AuthForm extends StatelessWidget {
           if (!isLogin) Spacing.height12,
           if (!isLogin)
             CustomTextField(
+              keyboardType: TextInputType.phone,
               label: 'Phone Number',
               validator: Validator.validatePhone,
               controller: phoneController,

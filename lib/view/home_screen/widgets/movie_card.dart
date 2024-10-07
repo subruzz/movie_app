@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/secrets/api_related.dart';
-import 'package:movie_app/view/signup/widgets/custom_button.dart';
+import 'package:movie_app/view/common_widgets/custom_button.dart';
 
 import '../../../model/movie_model.dart';
 import '../../../utils/config/sized_boxes.dart';

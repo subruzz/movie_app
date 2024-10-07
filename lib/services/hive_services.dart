@@ -1,18 +1,33 @@
+// user_service.dart
 import 'package:hive/hive.dart';
-import 'package:movie_app/model/user.dart';
+import '../../model/user.dart';
 
-class HiveService {
-  static Box<User> userBox = Hive.box('users');
+class UserService {
+  final Box<User> userBox;
 
-  static Future<void> registerUser(User user) async {
-    await userBox.put(user.name, user);
+  UserService(this.userBox);
+
+  Future<bool> userExists(String name, String password) async {
+    // Check if a user with the same username and password already exists.
+    for (var existingUser in userBox.values) {
+      if (existingUser.name == name && existingUser.password == password) {
+        return true; // User exists
+      }
+    }
+    return false; // User does not exist
   }
 
-  static User? loginUser(String name, String password) {
-    final user = userBox.get(name);
-    if (user != null && user.password == password) {
-      return user;
+  Future<void> addUser(User user) async {
+    await userBox.add(user); // Store user by username
+  }
+
+  Future<User?> getUser(String name, String password) async {
+    // Retrieve the user by checking both username and password.
+    for (var existingUser in userBox.values) {
+      if (existingUser.name == name && existingUser.password == password) {
+        return existingUser; // Return the found user
+      }
     }
-    return null;
+    return null; // No user found
   }
 }

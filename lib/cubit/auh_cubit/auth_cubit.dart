@@ -1,22 +1,28 @@
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/user.dart';
+import '../../services/hive_services.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final Box<User> userBox;
+  final UserService userService; // Use UserService instead of Box<User>
 
-  AuthCubit(this.userBox) : super(AuthInitial());
+  AuthCubit(this.userService) : super(AuthInitial());
 
   static const String isLoggedInKey = 'isLoggedIn';
 
   Future<void> registerUser(User user) async {
     emit(AuthLoading());
     await Future.delayed(const Duration(seconds: 2));
-
+    log('user name is ${user.name}');
     try {
-      await userBox.put(user.name, user);
+      bool userExists = await userService.userExists(user.name, user.password);
+      if (userExists) {
+        return emit(
+            AuthFailure('Account already exists. Please try to login!'));
+      }
+      await userService.addUser(user);
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(isLoggedInKey, true);
@@ -32,8 +38,8 @@ class AuthCubit extends Cubit<AuthState> {
     await Future.delayed(const Duration(seconds: 2));
 
     try {
-      final user = userBox.get(name);
-      if (user != null && user.password == password) {
+      final user = await userService.getUser(name, password);
+      if (user != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool(isLoggedInKey, true);
 
@@ -62,9 +68,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logoutUser() async {
     emit(AuthLoading());
     await Future.delayed(const Duration(seconds: 1));
-
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(isLoggedInKey); 
-    emit(AuthInitial()); 
+    await prefs.remove(isLoggedInKey);
+    emit(AuthInitial());
   }
 }

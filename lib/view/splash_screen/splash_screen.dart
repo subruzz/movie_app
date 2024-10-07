@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/cubit/auh_cubit/auth_cubit.dart';
 import 'package:movie_app/cubit/auh_cubit/auth_state.dart';
+import 'package:movie_app/utils/config/colors.dart';
 import 'package:movie_app/utils/config/sized_boxes.dart';
 import 'package:movie_app/view/home_screen/home_screen.dart';
 import 'package:movie_app/view/login/login_screen.dart';
@@ -57,11 +58,11 @@ class _SplashScreenState extends State<SplashScreen>
       },
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.blue.shade900, Colors.purple.shade900],
+              colors: [AppColors.primary, AppColors.secPrimary],
             ),
           ),
           child: Center(
@@ -73,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: const Icon(
                     Icons.movie,
                     size: 100,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
                 Spacing.height20,
@@ -82,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.white,
                     letterSpacing: 2,
                     shadows: [
                       Shadow(

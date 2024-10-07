@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import '../../model/movie_model.dart';
 
 part 'movie_state.dart';
+
 class MoviesCubit extends Cubit<MoviesState> {
   final ApiServices apiServices;
 
@@ -13,6 +14,7 @@ class MoviesCubit extends Cubit<MoviesState> {
 
   Future<void> fetchPopularMovies() async {
     emit(MoviesLoading());
+    await Future.delayed(const Duration(seconds: 1));
 
     try {
       final movies = await apiServices.getPopularMovies();

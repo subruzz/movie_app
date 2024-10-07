@@ -37,7 +37,7 @@ class CircularLoadingGrey extends StatelessWidget {
       height: size,
       width: size,
       child: const CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(AppColors.amber),
+        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
         strokeWidth: 2,
       ),
     );

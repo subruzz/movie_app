@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/utils/config/colors.dart';
+import 'package:movie_app/utils/config/sized_boxes.dart';
 
 class ContentBox extends StatelessWidget {
   final BuildContext context;
@@ -15,7 +17,7 @@ class ContentBox extends StatelessWidget {
           margin: const EdgeInsets.only(top: 45),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(20),
             boxShadow: const [
               BoxShadow(
@@ -27,12 +29,12 @@ class ContentBox extends StatelessWidget {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children:[
               const Text(
                 'Company Info',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
-              const SizedBox(height: 15),
+              Spacing.height20,
               const InfoItem(
                   icon: Icons.business,
                   text: 'Geeksynergy Technologies Pvt Ltd'),
@@ -40,7 +42,7 @@ class ContentBox extends StatelessWidget {
                   icon: Icons.location_on, text: 'Sanjayanagar, Bengaluru-56'),
               const InfoItem(icon: Icons.phone, text: 'XXXXXXXXX09'),
               const InfoItem(icon: Icons.email, text: 'XXXXXX@gmail.com'),
-              const SizedBox(height: 22),
+              Spacing.height20,
               Align(
                 alignment: Alignment.bottomRight,
                 child: TextButton(
@@ -66,7 +68,7 @@ class ContentBox extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(45)),
               child: Icon(
                 Icons.info_outline,
-                color: Colors.white,
+                color: AppColors.white,
                 size: 50,
               ),
             ),
@@ -89,7 +91,7 @@ class InfoItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(icon, color: Colors.blue, size: 24),
+          Icon(icon, color: AppColors.primary, size: 24),
           const SizedBox(width: 10),
           Expanded(
             child: Text(

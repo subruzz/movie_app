@@ -28,7 +28,7 @@ class CustomButton extends StatelessWidget {
       width: width ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor ?? AppColors.amber,
+          backgroundColor: buttonColor ?? AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
           ),
@@ -36,7 +36,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           buttonText,
-          style: TextStyle(color: textColor ?? Colors.black),
+          style: TextStyle(color: textColor ?? AppColors.white),
         ),
       ),
     );

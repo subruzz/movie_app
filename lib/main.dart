@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/cubit/auh_cubit/auth_cubit.dart';
 import 'package:movie_app/cubit/movie_cubit/movie_cubit.dart';
 import 'package:movie_app/model/user.dart';
+import 'package:movie_app/services/hive_services.dart';
 import 'package:movie_app/services/movie_services.dart';
 import 'package:movie_app/view/common_widgets/messenger.dart';
 import 'package:movie_app/view/splash_screen/splash_screen.dart';
@@ -28,14 +29,13 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => AuthCubit(
-              Hive.box<User>('users'),
+              UserService(Hive.box<User>('users')),
             ),
           ),
           BlocProvider(
-            create: (context) => MoviesCubit(
-              ApiServices(),
-            )..fetchPopularMovies()
-          )
+              create: (context) => MoviesCubit(
+                    ApiServices(),
+                  )..fetchPopularMovies())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

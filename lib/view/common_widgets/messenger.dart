@@ -15,9 +15,9 @@ class Messenger {
         ),
         duration: const Duration(milliseconds: 4000),
         behavior: SnackBarBehavior.floating,
-        backgroundColor: AppColors.amber,
+        backgroundColor: AppColors.primary,
         margin: const EdgeInsets.only(
-            right: 20, left: 20, top: 30, bottom: 20), // Adjust top margin
+            right: 20, left: 20, top: 30, bottom: 20),
         content: Text(
           message,
           style: TextStyle(
