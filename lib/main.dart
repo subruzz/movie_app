@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/cubit/auh_cubit/auth_cubit.dart';
+import 'package:movie_app/cubit/movie_cubit/movie_cubit.dart';
 import 'package:movie_app/model/user.dart';
+import 'package:movie_app/services/movie_services.dart';
 import 'package:movie_app/view/common_widgets/messenger.dart';
-import 'package:movie_app/view/login/login_screen.dart';
+import 'package:movie_app/view/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
   Hive.registerAdapter(UserAdapter());
-  Hive.openBox<User>('users');
+  await Hive.openBox<User>('users');
   runApp(
     const MyApp(),
   );
@@ -28,6 +30,11 @@ class MyApp extends StatelessWidget {
             create: (context) => AuthCubit(
               Hive.box<User>('users'),
             ),
+          ),
+          BlocProvider(
+            create: (context) => MoviesCubit(
+              ApiServices(),
+            )..fetchPopularMovies()
           )
         ],
         child: MaterialApp(
@@ -35,7 +42,7 @@ class MyApp extends StatelessWidget {
           title: 'New Project',
           scaffoldMessengerKey: Messenger.scaffoldKey,
           theme: ThemeData(primaryColor: Colors.black),
-          home: const LoginScreen(),
+          home: const SplashScreen(),
         ));
   }
 }

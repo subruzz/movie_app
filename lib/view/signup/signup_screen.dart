@@ -6,9 +6,12 @@ import 'package:movie_app/utils/config/colors.dart';
 import 'package:movie_app/utils/config/sized_boxes.dart';
 import 'package:movie_app/view/common_widgets/loading.dart';
 import 'package:movie_app/view/common_widgets/messenger.dart';
-import 'package:movie_app/view/signup/widgets/auth_button.dart';
+import 'package:movie_app/view/signup/widgets/custom_button.dart';
 import 'package:movie_app/view/signup/widgets/auth_choose_text.dart';
 import 'package:movie_app/view/signup/widgets/auth_form.dart';
+
+import '../../model/user.dart';
+import '../home_screen/home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -41,7 +44,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          Messenger.showSnackBar(message: state.message);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
         }
         if (state is AuthFailure) {
           Messenger.showSnackBar(message: state.error);
@@ -67,12 +73,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       Spacing.height20,
                       AuthForm(
+                          nameController: _nameController,
+                          emailController: _emailController,
+                          passwordController: _passwordController,
+                          phoneController: _phoneController,
+                          profession: _profession,
                           formKey: _formKey,
                           professions: _professions,
                           onProfessionChanged: (profession) {}),
                       Spacing.height20,
-                      AuthButton(
-                        formKey: _formKey,
+                      CustomButton(
+                        buttonText: 'Sign Up',
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            final user = User(
+                                name: _nameController.text.trim(),
+                                email: _nameController.text.trim(),
+                                phoneNumber: _phoneController.text.trim(),
+                                password: _passwordController.text.trim(),
+                                profession: _profession ?? '');
+                            context.read<AuthCubit>().registerUser(user);
+                          }
+                        },
                       ),
                       Spacing.height12,
                       const AuthChooseText()
